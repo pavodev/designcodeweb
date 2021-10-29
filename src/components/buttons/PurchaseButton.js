@@ -93,7 +93,7 @@ const Ring = styled.img`
 
   ${Wrapper}:hover & {
     // in order to select an element in this way it must have been already declared
-    transform: rotate(30deg) scale(1.2) translate(1px, 1px);
+    transform: rotate(30deg) scale(1.2) translate(1px, 2px);
   }
 `
 
