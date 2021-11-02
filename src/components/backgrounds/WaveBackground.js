@@ -10,7 +10,7 @@ export default function WaveBackground() {
         style={{ top: "100px" }} // Filter performance in old machines may be bad, in that case is better to use an already filtered png
       />
       <Wave src="/images/waves/hero-wave2.svg" style={{ top: "50px" }} />
-      <Wave src="/images/waves/hero-wave3.svg" style={{ top: "550px" }} />
+      <BottomWave src="/images/waves/hero-wave3.svg" style={{ top: "550px" }} />
     </Wrapper>
   )
 }
@@ -31,4 +31,14 @@ const Wave = styled.img`
   position: absolute;
   width: 100%;
   z-index: -1;
+
+  @media (min-width: 1440px) {
+    width: 100%;
+  }
+`
+
+const BottomWave = styled(Wave)`
+  @media (prefers-color-scheme: dark) {
+    content: url("/images/waves/hero-wave-3-dark.svg");
+  }
 `
