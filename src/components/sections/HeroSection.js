@@ -1,6 +1,7 @@
 import React from "react"
-import styled from "styled-components"
+import styled, { keyframes } from "styled-components"
 import MockupAnimation from "../animations/MockupAnimation"
+import WaveBackground from "../backgrounds/WaveBackground"
 import PurchaseButton from "../buttons/PurchaseButton"
 import { themes } from "../styles/ColorStyles"
 import { H1, MediumText } from "../styles/TextStyles"
@@ -8,6 +9,7 @@ import { H1, MediumText } from "../styles/TextStyles"
 function HeroSection() {
   return (
     <Wrapper>
+      <WaveBackground />
       <ContentWrapper>
         <TextWrapper>
           <Title>
@@ -30,8 +32,14 @@ function HeroSection() {
   )
 }
 
+const animation = keyframes`
+  /* from { opacity: 0; transform: translateY(-10px); filter: blur(10px);}
+  to { opacity: 1;  transform: translateY(0px); filter: blur(0px);} */
+  0% { opacity: 0; transform: translateY(-10px); filter: blur(10px);} 
+  100% { opacity: 1;  transform: translateY(0px); filter: blur(0px);}
+`
+
 const Wrapper = styled.div`
-  background: linear-gradient(180deg, #4316db 0%, #9076e7 100%);
   overflow: hidden;
 `
 
@@ -48,6 +56,27 @@ const TextWrapper = styled.div`
   max-width: 360px;
   display: grid;
   gap: 30px;
+
+  > * {
+    opacity: 0;
+    animation: ${animation} 1s forwards;
+    // the animation must be set before
+
+    :nth-child(1) {
+      // Then we can modify it
+      animation-delay: 0s;
+    }
+
+    :nth-child(2) {
+      // Then we can modify it
+      animation-delay: 0.2s;
+    }
+
+    :nth-child(3) {
+      // Then we can modify it
+      animation-delay: 0.4s;
+    }
+  }
 `
 
 const Title = styled(H1)`

@@ -1,24 +1,37 @@
 import styled from "styled-components"
-import { Link } from "gatsby"
-import React from "react"
+import React, { useState } from "react"
 import { menuData } from "../../data/menuData"
+import MenuButton from "../buttons/MenuButton"
+import { Link } from "gatsby"
+import MenuTooltip from "../tooltips/MenuTooltip"
 
 export default function Header() {
+  const [isOpen, setIsOpen] = useState(false)
+
+  function handleClick(event) {
+    event.preventDefault()
+    setIsOpen(!isOpen)
+  }
+
   return (
     <Wrapper>
-      <img src="/images/logos/logo.svg" alt="logo" />
-      <MenuWrapper>
-        {menuData.map((item, index) => {
-          return (
-            <Link to="item.link" key={index}>
-              <MenuItem>
-                <img src={item.icon} alt={item.title} />
-                {item.title}
-              </MenuItem>
-            </Link>
+      <Link to="/">
+        <img src="/images/logos/logo.svg" alt="logo" />
+      </Link>
+      <MenuWrapper count={menuData.length}>
+        {menuData.map((item, index) =>
+          item.link === "/account" ? (
+            <MenuButton
+              onClick={event => handleClick(event)}
+              item={item}
+              key={index}
+            />
+          ) : (
+            <MenuButton item={item} key={index} />
           )
-        })}
+        )}
       </MenuWrapper>
+      <MenuTooltip isOpen={isOpen} />
     </Wrapper>
   )
 }
@@ -38,24 +51,7 @@ const MenuWrapper = styled.div`
   display: grid;
   gap: 30px;
   grid-template-columns: repeat(
-    ${menuData.length},
+    ${props => props.count},
     auto
   ); // Columns, value for each column
-`
-
-const MenuItem = styled.div`
-  color: rgba(255, 255, 255, 0.7);
-  display: grid;
-  grid-template-columns: 24px auto;
-  gap: 10px;
-  align-items: center;
-  padding: 10px;
-  border-radius: 10px;
-  transition: 0.4s;
-
-  :hover {
-    background: rgba(255, 255, 255, 0.1);
-    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1),
-      inset 0px 0px 0px 0.5px rgba(255, 255, 255, 0.2);
-  }
 `
