@@ -39,6 +39,6 @@ const Wave = styled.img`
 
 const BottomWave = styled(Wave)`
   @media (prefers-color-scheme: dark) {
-    content: url("/images/waves/hero-wave-3-dark.svg");
+    content: url("/images/waves/hero-wave3-dark.svg");
   }
 `
